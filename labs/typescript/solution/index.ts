@@ -1,11 +1,11 @@
 class Book {
-  constructor(public title, public yearPublished) {}
+  constructor(public title: string, public yearPublished: number) {}
 }
 
 class Author {
-  public books = [];
+  public books: Book[] = [];
 
-  constructor(public name) {
+  constructor(public name: string) {
   }
 
   addBook(book) {
