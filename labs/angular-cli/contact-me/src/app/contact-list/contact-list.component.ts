@@ -16,12 +16,12 @@ export class ContactListComponent implements OnInit {
   }
 
   onSubmit(form) {
-    let contact = {
+    this.contactService.save({
       name: form.name.value,
       phone: form.phone.value
-    };
+    });
 
-    this.contacts.push(contact);
+    this.contacts = this.contactService.getList();
   }
 
 }
