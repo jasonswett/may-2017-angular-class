@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContactListComponent } from './contact-list/contact-list.component';
+import { ContactService } from './contact.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { ContactListComponent } from './contact-list/contact-list.component';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [ContactService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

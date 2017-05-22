@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ContactService } from '../contact.service';
 
 @Component({
   selector: 'contact-me-contact-list',
@@ -6,20 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contact-list.component.css']
 })
 export class ContactListComponent implements OnInit {
-  contacts = [
-    {
-      name: 'Paul McCartney',
-      phone: '(683) 385-3835'
-    },
-    {
-      name: 'John Lennon',
-      phone: '(322) 395-3388'
-    }
-  ];
+  contacts;
 
-  constructor() { }
+  constructor(private contactService: ContactService) { }
 
   ngOnInit() {
+    this.contacts = this.contactService.getList();
   }
 
   onSubmit(form) {
