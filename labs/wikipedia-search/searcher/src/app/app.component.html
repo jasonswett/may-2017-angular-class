@@ -1,3 +1,8 @@
-<h1>
-  {{title}}
-</h1>
+<h1>Wikipedia Demo</h1>
+<p>Search after each keystroke</p>
+
+<input (keyup)="search($event.target.value)"/>
+
+<ul>
+  <li *ngFor="let item of items">{{item}}</li>
+</ul>
