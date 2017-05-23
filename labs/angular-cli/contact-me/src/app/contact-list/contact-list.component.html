@@ -12,9 +12,11 @@
   </div>
 </form>
 
+<button (click)="deleteAll()">Delete all</button>
+
 <ul>
   <li *ngFor="let contact of contacts">
-    {{ contact.name }}<br>
+    <a [routerLink]="contact.slug">{{ contact.name }}</a><br>
     {{ contact.phone }}
   </li>
 </ul>

@@ -1,29 +1,40 @@
-function addTwoNumbers(a, b) {
-  if (isNaN(a) || isNaN(b)) {
-    throw new Error('Both arguments must be numbers');
-  }
+function addSomeNumbers(input) {
+  var numbers = input.replace('plus', '+').split('+');
+  var total = 0;
 
-  return a + b;
+  numbers.forEach(function(number) {
+    total = total + parseInt(number);
+  });
+
+  return total;
 }
 
-describe('addTwoNumbers', function() {
-  it('adds two numbers', function() {
-    expect(addTwoNumbers(4, 5)).toEqual(9);
+describe('addSomeNumbers', function() {
+  it('works with two numbers', function() {
+    expect(addSomeNumbers('1 + 1')).toEqual(2);
   });
 
-  describe('first number is not a number', function() {
-    it('throws an error', function() {
-      expect(function() {
-        addTwoNumbers('some string', 5);
-      }).toThrow(new Error('Both arguments must be numbers'));
-    });
+  it('works with three numbers', function() {
+    expect(addSomeNumbers('5 + 2 + 8')).toEqual(15);
   });
 
-  describe('second number is not a number', function() {
-    it('throws an error', function() {
-      expect(function() {
-        addTwoNumbers(4, 'some string');
-      }).toThrow(new Error('Both arguments must be numbers'));
-    });
+  it('works with expressions without spaces', function() {
+    expect(addSomeNumbers('3+4')).toEqual(7);
+  });
+
+  it('works with negative numbers', function() {
+    expect(addSomeNumbers('7 + -2')).toEqual(5);
+  });
+
+  it('works with negative numbers without spaces', function() {
+    expect(addSomeNumbers('7+-2')).toEqual(5);
+  });
+
+  it('works with single numbers', function() {
+    expect(addSomeNumbers('-5')).toEqual(-5);
+  });
+
+  it('works with words', function() {
+    expect(addSomeNumbers('1 plus 2')).toEqual(3);
   });
 });
