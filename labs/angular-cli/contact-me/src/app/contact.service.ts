@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
+import { Utilities } from './utilities';
 
 @Injectable()
 export class ContactService {
@@ -7,10 +8,12 @@ export class ContactService {
 
   save(contact) {
     let contacts = this.getList();
-    contact.slug = this.slugify(contact.name);
+    contact.slug = Utilities.slugify(contact.name);
     contacts.push(contact);
 
     this.storageService.setItem('contacts', JSON.stringify(contacts));
+
+    return contact;
   }
 
   getList() {
@@ -19,10 +22,6 @@ export class ContactService {
 
   deleteAll() {
     this.storageService.setItem('contacts', '[]');
-  }
-
-  slugify(value) {
-    return value.replace(' ', '-').toLowerCase();
   }
 
   findBySlug(slug) {

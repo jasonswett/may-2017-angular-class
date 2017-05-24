@@ -31,4 +31,21 @@ describe('ContactListComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('onSubmit', function() {
+    it('should be created', () => {
+      component.onSubmit({
+        name: {value: 'Jason Swett'},
+        phone: {value: '(616) 856-8075'}
+      });
+
+      let contact = {
+        name: 'Jason Swett',
+        phone: '(616) 856-8075',
+        slug: 'jason-swett'
+      };
+
+      expect(component.contacts).toContain(contact);
+    });
+  });
 });
