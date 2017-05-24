@@ -3,7 +3,8 @@ import { ContactDetailComponent } from './contact-detail.component';
 import { ActivatedRoute } from "@angular/router";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import { ContactService } from "../contact.service";
+import { ContactService } from '../contact.service';
+import { MockContactService } from '../mock-contact.service';
 
 describe('ContactDetailComponent', () => {
   let component: ContactDetailComponent;
@@ -13,11 +14,14 @@ describe('ContactDetailComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ContactDetailComponent ],
       providers: [
-        ContactService,
+        {
+          provide: ContactService,
+          useClass: MockContactService
+        },
         {
           provide: ActivatedRoute,
           useValue: {
-            params: Observable.of({})
+            params: Observable.of({ slug: 'jason-swett' })
           }
         }
       ]
@@ -33,5 +37,9 @@ describe('ContactDetailComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should be created', () => {
+    expect(component.contact.name).toEqual('Jason Swett');
   });
 });
