@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
-import { StorageService } from './storage.service';
-import { Utilities } from './utilities';
 import { Observable } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
+
+import { Utilities } from './utilities';
+import { StorageService } from './storage.service';
 
 @Injectable()
 export class ContactService {
+  private contactSavedSource = new Subject();
+  contactSaved$ = this.contactSavedSource.asObservable();
+
   constructor(private storageService: StorageService) { }
 
   save(contact) {
@@ -13,6 +18,8 @@ export class ContactService {
     contacts.push(contact);
 
     this.storageService.setItem('contacts', JSON.stringify(contacts));
+
+    this.contactSavedSource.next(contact);
 
     return Observable.create(observer => {
       observer.next(contact);

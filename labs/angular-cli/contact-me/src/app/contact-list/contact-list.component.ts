@@ -12,11 +12,19 @@ export class ContactListComponent implements OnInit {
   constructor(private contactService: ContactService) { }
 
   ngOnInit() {
+    this.loadList();
+
+    this.contactService.contactSaved$.subscribe(contact => {
+      this.loadList();
+    });
+  }
+
+  loadList() {
     this.contacts = this.contactService.getList();
   }
 
   deleteAll() {
     this.contactService.deleteAll();
-    this.contacts = this.contactService.getList();
+    this.loadList();
   }
 }
