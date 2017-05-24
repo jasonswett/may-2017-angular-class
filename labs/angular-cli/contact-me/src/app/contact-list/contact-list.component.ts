@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContactService } from '../contact.service';
+import { Contact } from '../contact';
 
 @Component({
   selector: 'contact-me-contact-list',
@@ -8,6 +9,7 @@ import { ContactService } from '../contact.service';
 })
 export class ContactListComponent implements OnInit {
   contacts;
+  contact = new Contact('', '');
 
   constructor(private contactService: ContactService) { }
 
@@ -15,12 +17,8 @@ export class ContactListComponent implements OnInit {
     this.contacts = this.contactService.getList();
   }
 
-  onSubmit(form) {
-    this.contactService.save({
-      name: form.name.value,
-      phone: form.phone.value
-    });
-
+  onSubmit() {
+    this.contactService.save(this.contact);
     this.contacts = this.contactService.getList();
   }
 
