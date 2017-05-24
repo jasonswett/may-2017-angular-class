@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { ContactService } from './contact.service';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
+import {StorageService} from "./storage.service";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,10 @@ import { ContactDetailComponent } from './contact-detail/contact-detail.componen
     HttpModule,
     AppRoutingModule
   ],
-  providers: [ContactService],
+  providers: [
+    ContactService,
+    StorageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
