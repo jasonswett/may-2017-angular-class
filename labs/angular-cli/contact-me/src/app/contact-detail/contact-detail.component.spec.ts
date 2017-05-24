@@ -1,6 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { ContactDetailComponent } from './contact-detail.component';
+import { ActivatedRoute } from "@angular/router";
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import { ContactService } from "../contact.service";
 
 describe('ContactDetailComponent', () => {
   let component: ContactDetailComponent;
@@ -8,7 +11,16 @@ describe('ContactDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ContactDetailComponent ]
+      declarations: [ ContactDetailComponent ],
+      providers: [
+        ContactService,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: Observable.of({})
+          }
+        }
+      ]
     })
     .compileComponents();
   }));
