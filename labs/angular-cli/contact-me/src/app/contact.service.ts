@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
+import { StorageService } from './storage.service';
 
 @Injectable()
 export class ContactService {
-  constructor() { }
+  constructor(private storageService: StorageService) { }
 
   save(contact) {
     let contacts = this.getList();
     contact.slug = this.slugify(contact.name);
     contacts.push(contact);
 
-    localStorage.setItem('contacts', JSON.stringify(contacts));
+    this.storageService.setItem('contacts', JSON.stringify(contacts));
   }
 
   getList() {
-    return JSON.parse(localStorage.getItem('contacts')) || [];
+    return JSON.parse(this.storageService.getItem('contacts')) || [];
   }
 
   deleteAll() {
-    localStorage.setItem('contacts', '[]');
+    this.storageService.setItem('contacts', '[]');
   }
 
   slugify(value) {

@@ -1,10 +1,14 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { ContactService } from './contact.service';
+import { StorageService } from './storage.service';
 
-describe('ContactService', () => {
+fdescribe('ContactService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ContactService]
+      providers: [
+        ContactService,
+        StorageService
+      ]
     });
   });
 
