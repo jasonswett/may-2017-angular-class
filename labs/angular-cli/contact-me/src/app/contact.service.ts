@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
 import { Utilities } from './utilities';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ContactService {
@@ -13,7 +14,9 @@ export class ContactService {
 
     this.storageService.setItem('contacts', JSON.stringify(contacts));
 
-    return contact;
+    return Observable.create(observer => {
+      observer.next(contact);
+    });
   }
 
   getList() {
@@ -22,6 +25,10 @@ export class ContactService {
 
   deleteAll() {
     this.storageService.setItem('contacts', '[]');
+  }
+
+  slugify(value) {
+    return '';
   }
 
   findBySlug(slug) {

@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, async } from '@angular/core/testing';
 import { ContactService } from './contact.service';
 import { StorageService } from './storage.service';
 import { MemoryStorageService } from './memory-storage.service';
@@ -21,7 +21,7 @@ describe('ContactService', () => {
   }));
 
   describe('save', function() {
-    it('should save a contact', inject([ContactService], (service: ContactService) => {
+    it('should save a contact', async(inject([ContactService], (service: ContactService) => {
       service.deleteAll();
 
       let contact = {
@@ -30,10 +30,10 @@ describe('ContactService', () => {
         phone: '(616) 856-8075'
       };
 
-      service.save(contact);
-
-      expect(service.getList()).toContain(contact);
-    }));
+      service.save(contact).subscribe(response => {
+        expect(service.getList()).toContain(contact);
+      });
+    })));
 
     it('should save a slug', inject([ContactService], (service: ContactService) => {
       service.deleteAll();
@@ -43,9 +43,9 @@ describe('ContactService', () => {
         phone: '(616) 856-8075'
       };
 
-      let savedContact = service.save(contact);
-
-      expect(savedContact.slug).toEqual('jason-swett');
+      service.save(contact).subscribe(savedContact => {
+        expect(savedContact.slug).toEqual('jason-swett');
+      });
     }));
   });
 });
