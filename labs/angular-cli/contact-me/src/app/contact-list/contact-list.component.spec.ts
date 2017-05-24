@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ContactListComponent } from './contact-list.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ContactService } from '../contact.service';
+import { MockContactService } from '../mock-contact.service';
 
 describe('ContactListComponent', () => {
   let component: ContactListComponent;
@@ -11,7 +12,12 @@ describe('ContactListComponent', () => {
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule ],
       declarations: [ ContactListComponent ],
-      providers: [ ContactService ]
+      providers: [
+        {
+          provide: ContactService,
+          useClass: MockContactService
+        }
+      ]
     })
     .compileComponents();
   }));
